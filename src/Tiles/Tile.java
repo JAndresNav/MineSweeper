@@ -1,13 +1,14 @@
 package Tiles;
 
-public class Tile {
+public abstract class Tile {
 
-    private int Bomb;
-    private int number;
-    private int clear;
+    boolean revealed;
 
-    public Tile(int state) {
-
+    public Tile() {
+        revealed = false;
     }
+
+    public abstract void reveal();
+    public abstract boolean ShowTile();
 
 }
