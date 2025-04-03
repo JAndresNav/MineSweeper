@@ -12,4 +12,9 @@ public class Clear extends Tile {
     public boolean ShowTile() {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Clear{}";
+    }
 }

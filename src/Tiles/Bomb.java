@@ -3,6 +3,10 @@ package Tiles;
 public class Bomb extends Tile {
 
 
+    public Bomb(){
+
+    }
+
     @Override
     public void reveal() {
 
@@ -11,5 +15,10 @@ public class Bomb extends Tile {
     @Override
     public boolean ShowTile() {
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Bomb{}";
     }
 }
