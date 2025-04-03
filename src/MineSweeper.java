@@ -3,10 +3,7 @@ import Tiles.Number;
 
 public class MineSweeper {
 
-    public static int alrededor(int[] Tablero, int i,int dirección){
-
-
-
+    public static int alrededor(int[] Tablero, int i, int dirección) {
         int fila = i / 8;
         int columna = i % 8;
 
@@ -17,7 +14,6 @@ public class MineSweeper {
 
         int arribaIzquierda = 0;
         int arribaDerecha = 0;
-
         int abajoIzquierda = 0;
         int abajoDerecha = 0;
 
@@ -59,6 +55,7 @@ public class MineSweeper {
             default -> 0;
         };
     }
+
 
     public static boolean minaRodeada(int[] Tablero, int i){
 

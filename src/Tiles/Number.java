@@ -5,7 +5,7 @@ public class Number extends Tile {
     private int alrededor;
 
     public Number(int contador){
-
+        setAlrededor(contador);
     }
 
     @Override
