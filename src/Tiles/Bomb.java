@@ -9,7 +9,7 @@ public class Bomb extends Tile {
 
     @Override
     public void reveal() {
-
+        new Explode();
     }
 
     @Override

@@ -1,3 +1,8 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+
 import Tiles.*;
 import Tiles.Number;
 
@@ -55,7 +60,6 @@ public class MineSweeper {
             default -> 0;
         };
     }
-
 
     public static boolean minaRodeada(int[] Tablero, int i){
 
@@ -130,9 +134,20 @@ public class MineSweeper {
         return contador;
     }
 
+    public static int[] ShuffleArray(int[] Tablero){
+        Random rand = new Random();
+        for (int i = Tablero.length - 1; i > 0; i--) {
+            int j = rand.nextInt(i + 1);
+            int temp = Tablero[i];
+            Tablero[i] = Tablero[j];
+            Tablero[j] = temp;
+        }
+        return Tablero;
+    }
+
     public static void main(String[] args) {
 
-        final int[] Tablero= new int[64];
+        int[] Tablero= new int[64];
         final Tile[] game = new Tile[64];
 
         int mines = 20;
@@ -153,6 +168,8 @@ public class MineSweeper {
             }
 
         }
+
+        Tablero = ShuffleArray(Tablero);
 
         for (int i = 0; i < Tablero.length; i++) {
             switch (Tablero[i]) {
