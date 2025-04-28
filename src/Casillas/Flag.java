@@ -1,6 +1,6 @@
-package Tiles;
+package Casillas;
 
-public class Clear extends Tile {
+public class Flag extends Casillas {
 
 
     @Override
@@ -11,10 +11,5 @@ public class Clear extends Tile {
     @Override
     public boolean ShowTile() {
         return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Clear{}";
     }
 }

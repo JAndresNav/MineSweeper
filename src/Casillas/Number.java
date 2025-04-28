@@ -1,6 +1,6 @@
-package Tiles;
+package Casillas;
 
-public class Number extends Tile {
+public class Number extends Casillas {
 
     private int alrededor;
 

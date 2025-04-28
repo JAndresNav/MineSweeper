@@ -1,6 +1,6 @@
-package Tiles;
+package Casillas;
 
-public class Bomb extends Tile {
+public class Bomb extends Casillas {
 
 
     public Bomb(){

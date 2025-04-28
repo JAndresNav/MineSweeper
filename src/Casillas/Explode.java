@@ -1,4 +1,4 @@
-package Tiles;
+package Casillas;
 
 public class Explode extends Bomb {
 

@@ -1,12 +1,12 @@
-package Tiles;
+package Casillas;
 
-public abstract class Tile {
+public abstract class Casillas {
 
     boolean revealed;
 
-    public Tile() {
+    public Casillas() {
         revealed = false;
-    }
+    }//No esta revelada aun
 
     public abstract void reveal();
     public abstract boolean ShowTile();
