@@ -4,13 +4,13 @@ public class Clear extends Casillas {
 
 
     @Override
-    public void reveal() {
+    public void reveal() { //Simplemente la casilla esta vacia (No hace nada)
 
     }
 
     @Override
     public boolean ShowTile() {
-        return false;
+        return false; //No se muestra nada hasta que el jugador haga una interaccion.
     }
 
     @Override

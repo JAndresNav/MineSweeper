@@ -11,5 +11,5 @@ public class Flag extends Casillas {
     @Override
     public boolean ShowTile() {
         return false;
-    }
+    } //No revelar automaticamente
 }

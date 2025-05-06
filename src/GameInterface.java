@@ -5,7 +5,7 @@ import Casillas.*;
 import Casillas.Number;
 
 
-public class InterfazJuego extends JFrame {
+public class GameInterface extends JFrame {
 
     //Arreglos para los bonotes, las casillas del juego, las bandera y el conteo de casillas reveladas
     private JButton[] buttons = new JButton[64]; //Botones que representan las casillas
@@ -14,7 +14,7 @@ public class InterfazJuego extends JFrame {
     private int revealedCount = 0; //Conrtador de casillas reveladas
 
     //Inicializa la interfaz
-    public InterfazJuego(Casillas[] initialGame) {
+    public GameInterface(Casillas[] initialGame) {
         this.game = initialGame; //Inicializamos el juego con las casillas dadas
 
         //Configuramos la ventana del juego
@@ -133,7 +133,7 @@ public class InterfazJuego extends JFrame {
 
     //Método para reiniciar el juego
     private void restartGame() {
-        this.game = MineSweeper.generarJuego();
+        this.game = MineSweeper.GenerateGame();
         this.revealedCount = 0;
         this.isFlagged = new boolean[64];
 
@@ -171,8 +171,8 @@ public class InterfazJuego extends JFrame {
 
     //Generamos un nuevo juego
     public static void main(String[] args) {
-        Casillas[] game = MineSweeper.generarJuego();
-        SwingUtilities.invokeLater(() -> new InterfazJuego(game));
+        Casillas[] game = MineSweeper.GenerateGame();
+        SwingUtilities.invokeLater(() -> new GameInterface(game));
     }
 }
-//
+

@@ -1,14 +1,18 @@
-import java.util.Random;
-import Casillas.*;
+import java.util.Random; //Importamos la clase random para generar numero aleatorios.
+import Casillas.*; //Importamos todas las clases del paquete casillas
 import Casillas.Number;
 
+// Clase principal que genera y configura el tablero del juego Buscaminas:
 public class MineSweeper { //Esqueleto
 
-    public static int numbers(int[] Tablero, int i) {
-        int fila = i / 8;
-        int columna = i % 8;
-        int contador = 0;
 
+    //Calcula cuántas minas (valor 1 en el arreglo) rodean una casilla en la posición 'i' del tablero.
+    public static int numbers(int[] Tablero, int i) {
+        int fila = i / 8; //Calculamos la fila de las casillas
+        int columna = i % 8; //Calculamos la columna de las casillas.
+        int contador = 0; //Contador de minar alrededor.
+
+        // Se revisan las 8 posiciones adyacentes a la casilla (arriba, abajo, izquierda, derecha y diagonales).
         if (columna > 0 && Tablero[i - 1] == 1) contador++; // izquierda
         if (columna < 7 && Tablero[i + 1] == 1) contador++; // derecha
         if (fila > 0 && Tablero[i - 8] == 1) contador++;    // arriba
@@ -18,47 +22,15 @@ public class MineSweeper { //Esqueleto
         if (fila < 7 && columna > 0 && Tablero[i + 7] == 1) contador++; // diagonal abajo-izquierda
         if (fila < 7 && columna < 7 && Tablero[i + 9] == 1) contador++; // diagonal abajo-derecha
 
-        return contador;
+        return contador; //Devolvemos la cantidad de minas vecinas.
     }
 
-    /*public static int alrededor(int[] Tablero, int indice, int dirección) { //Busca si hay una mina en la direccion que se le manda
-        //Se determina la fila y la columna para que se pueda buscar más facil y no reutilizar formulas
-        int fila = indice / 8;
-        int columna = indice % 8;
 
-        switch (dirección) {
-            case 0 -> { return (columna > 0 && Tablero[indice - 1] == 1) ? 1 : 0; } //Izquierdo central
-            case 1 -> { return (columna < 7 && Tablero[indice + 1] == 1) ? 1 : 0; } //Derecho central
-            case 2 -> { return (fila > 0 && Tablero[indice - 8] == 1) ? 1 : 0; } //Superior
-            case 3 -> { return (fila < 7 && Tablero[indice + 8] == 1) ? 1 : 0; } //inferior
-            case 4 -> { return (fila > 0 && columna > 0 && Tablero[indice - 9] == 1) ? 1 : 0; } //Izquieda superior
-            case 5 -> { return (fila > 0 && columna < 7 && Tablero[indice - 7] == 1) ? 1 : 0; } //derecha superior
-            case 6 -> { return (fila < 7 && columna > 0 && Tablero[indice + 7] == 1) ? 1 : 0; } // izquierda inferior
-            case 7 -> { return (fila < 7 && columna < 7 && Tablero[indice + 9] == 1) ? 1 : 0; } //derecha inferior
-            default -> { return 0; }
-        }
-    }
-
-    /*public static boolean minaRodeada(int[] Tablero, int i) { //No puede estar
-        return alrededor(Tablero, i, 0) == 1 &&
-                alrededor(Tablero, i, 1) == 1 &&
-                alrededor(Tablero, i, 2) == 1 &&
-                alrededor(Tablero, i, 3) == 1;
-    }
-
-    public static int numbers(int[] Tablero, int i) {
-        int contador = 0;
-        for (int d = 0; d < 8; d++) {
-            contador += alrededor(Tablero, i, d);
-        }
-        return contador;
-    } */
-
+    //Mezcla aleatoriamente los elementos del arreglo del tablero para distribuir minas al azar:
     public static int[] ShuffleArray(int[] Tablero) {
-        //Mezclar el tablero
         Random rand = new Random();
         for (int i = Tablero.length - 1; i > 0; i--) {
-            int j = rand.nextInt(i + 1);
+            int j = rand.nextInt(i + 1); //Generamos un indice aleatorio entre 0 e i
             int temp = Tablero[i]; //Nos va a cambiar los valores del Array
             Tablero[i] = Tablero[j];
             Tablero[j] = temp;
@@ -66,42 +38,38 @@ public class MineSweeper { //Esqueleto
         return Tablero;
     }
 
-    public static Casillas[] generarJuego() {
-        int[] Tablero = new int[64];
-        Casillas[] game = new Casillas[64]; //Pendiente
-        int mines = 10; //Limite de minas, puedes poner el numero que quieras que no exceda el tablero
+    //Genera el juego de Buscaminas completo como un arreglo de objetos tipo Casilla.
+    public static Casillas[] GenerateGame() {
+        int[] Tablero = new int[64];  // Arreglo base que representa el estado lógico del tablero (64 casillas).
+        Casillas[] game = new Casillas[64]; //Arreglo de objetos que representa el tablero visual del juego.
+        int mines = 10; //Numero de minas que se colocaran, puedes poner el numero que quieras que no exceda el tablero
 
+        //Genera aleatoriamente 10 minas (representadas con 1) y el resto con 0 (espacios vacíos).
         for (int i = 0; i < Tablero.length; i++) {
-            //while (true) {
-                //Ciclo infinito que nos asegura que simepre haya valores en todas las casillas
-                int random = (int)(Math.random() * 2);
-                if (random == 1 && mines != 0 /*&& !minaRodeada(Tablero, i)*/) {
+                int random = (int)(Math.random() * 2); //Genera 0 y 1 aleatoriamente.
+                if (random == 1 && mines != 0) {
                     //Itera y se actualiza hasta que complete el tablero, si hay un uno fuera del rango ya no se agrega
-                    Tablero[i] = 1;
-                    mines--;
-                    //Le resta la mina hasta no tener más,
-                //} else if (random == 1) {
-                  //  continue; //obligamos a seguir generando numeros random
+                    Tablero[i] = 1; //Colocamos una mina
+                    mines--; //Reducimos el contador de minas restante.
                 } else {
-                    Tablero[i] = 0;
+                    Tablero[i] = 0; //Colocamos un espacio vacio
                 }
-                //break;
             }
-        //}
 
+        // Se revuelven las posiciones de las minas para que queden distribuidas aleatoriamente.
         Tablero = ShuffleArray(Tablero);
-        //Revuelve el tablero
 
+        // Se genera el arreglo visual del juego con objetos que representan cada tipo de casilla.
         for (int i = 0; i < Tablero.length; i++) {
             //Arreglo de objetos
             if (Tablero[i] == 1) {
-                game[i] = new Bomb();
+                game[i] = new Bomb(); //Si hay una mina se crea un objeto bomb
             } else {
-                int num = numbers(Tablero, i);
-                game[i] = (num == 0) ? new Clear() : new Number(num);
+                int num = numbers(Tablero, i); //Se cuentan las minas vecinas
+                game[i] = (num == 0) ? new Clear() : new Number(num); // Si hay 0 minas, casilla vacía (Clear); si no, número (Number).
             }
         }
 
-        return game;
+        return game; //Se devuelve el tablero del juego configurado.
     }
 }
