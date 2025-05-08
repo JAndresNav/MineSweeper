@@ -32,7 +32,7 @@ public class GameInterface extends JFrame {
             final int index = i; //Casilla actual
             buttons[i] = new JButton(); //Se crea un boton para cada casilla
             buttons[i].setFont(new Font("Arial", Font.BOLD, 16)); //Estilo de la fuente
-            buttons[i].setFocusable(false); //Desactivamos el enfoque del botón
+
 
             //Manejar el clic de los botones
             buttons[i].addMouseListener(new MouseAdapter() {
@@ -81,10 +81,10 @@ public class GameInterface extends JFrame {
         if (!buttons[index].isEnabled() || isFlagged[index]) return; //Si a esta revelada o tiene una bandera no pasa nada
 
         if (casillas instanceof Bomb) { //Si la casilla es una bomba
-            buttons[index].setText("💣"); //Mostramos un icono de bomba
+            buttons[index].setText("B"); //Mostramos un icono de bomba
             buttons[index].setBackground(Color.RED); //Fondo rojo
             revealAll(); //Se revelan todas las casillas
-            JOptionPane.showMessageDialog(this, "💥 ¡Perdiste! Era una bomba.");
+            JOptionPane.showMessageDialog(this, "Perdiste! Era una bomba." + "Casillas reveladas: " + revealedCount);
             disableAll(); //Desactivamos todos los botones
             return;
         }
@@ -120,20 +120,20 @@ public class GameInterface extends JFrame {
     //Ver si el jugador gano y revelar las casillas
     private void checkWin() {
         int nonBombs = 0;
-        for (Casillas t : game) {
+        for (Casillas t : game) { //ciclo que revisa el tablero y por cada NO bomba encontrada suma 1 a noBombs
             if (!(t instanceof Bomb)) nonBombs++;
         }
 
-        if (revealedCount == nonBombs) {
+        if (revealedCount == nonBombs) { //Si se han revelado todas las casillas sin bombas
             revealAll();
-            JOptionPane.showMessageDialog(this, "🎉 ¡Felicidades! Has ganado.");
+            JOptionPane.showMessageDialog(this, "Felicidades! Has ganado.");
             disableAll();
         }
     }
 
     //Método para reiniciar el juego
     private void restartGame() {
-        this.game = MineSweeper.GenerateGame();
+        this.game = MineSweeper.generateGame();
         this.revealedCount = 0;
         this.isFlagged = new boolean[64];
 
@@ -145,7 +145,7 @@ public class GameInterface extends JFrame {
         }
     }
 
-    //Cuando sel juego se termina se deshabilitan todos los controles
+    //Cuando el juego se termina se deshabilita todos los botones
     private void disableAll() {
         for (JButton button : buttons) {
             button.setEnabled(false);
@@ -171,7 +171,7 @@ public class GameInterface extends JFrame {
 
     //Generamos un nuevo juego
     public static void main(String[] args) {
-        Casillas[] game = MineSweeper.GenerateGame();
+        Casillas[] game = MineSweeper.generateGame();
         SwingUtilities.invokeLater(() -> new GameInterface(game));
     }
 }
